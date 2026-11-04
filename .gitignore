@@ -40,3 +40,6 @@ src/*.res
 
 # ctags
 tags
+
+# nix build output
+/result
