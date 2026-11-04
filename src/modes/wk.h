@@ -68,6 +68,7 @@
 #define WK_DELETE  L"\x7f"
 #define WK_DOLLAR  L"$"
 #define WK_DOT     L"."
+#define WK_SECTION L"\u00a7"
 #define WK_EM      L"!"
 #define WK_EQUALS  L"="
 #define WK_ESC     L"\x1b"
@@ -148,6 +149,7 @@
 
 /* Character form for use in aggregate initializers of wide strings or direct
  * comparisons. */
+#define WC_C_h L'\x08'
 #define WC_C_m L'\x0d'
 #define WC_C_w L'\x17'
 #define WC_C_z L'\x1a'

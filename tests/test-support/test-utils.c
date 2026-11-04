@@ -105,6 +105,7 @@ conf_setup(void)
 	update_string(&cfg.tab_label, "");
 	update_string(&cfg.tab_suffix, "");
 	update_string(&cfg.delete_prg, "");
+	update_string(&cfg.jump_labels, "asdghklqwertyuiopzxcvbnmfj");
 
 	cfg.sizefmt.base = 1;
 	cfg.sizefmt.precision = 0;
@@ -165,6 +166,7 @@ conf_teardown(void)
 	update_string(&cfg.tab_label, NULL);
 	update_string(&cfg.tab_suffix, NULL);
 	update_string(&cfg.delete_prg, NULL);
+	update_string(&cfg.jump_labels, NULL);
 	update_string(&cfg.shell, NULL);
 	update_string(&cfg.shell_cmd_flag, NULL);
 

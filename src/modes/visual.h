@@ -59,6 +59,9 @@ int modvis_find_interactive(struct view_t *view, const char pattern[],
  * to a statically allocated buffer. */
 const char * modvis_describe(void);
 
+/* Leaves visual mode preserving selection and opens selected files. */
+void modvis_open(void);
+
 /* Checks whether visual amend mode is active.  Returns non-zero if it is,
  * otherwise zero is returned. */
 int modvis_is_amending(void);

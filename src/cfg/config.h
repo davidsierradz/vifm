@@ -216,6 +216,7 @@ typedef struct config_t
 	int auto_execute;
 	int wrap_quick_view;
 	char *time_format;
+	char *jump_labels; /* Characters to use for labels of jump mode. */
 	/* This one should be set using cfg_set_fuse_home() function. */
 	char *fuse_home;
 

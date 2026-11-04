@@ -96,6 +96,7 @@ enum
 	OTHER_WIN_COLOR,    /* Background and highlighting for inactive pane. */
 	LINE_NUM_COLOR,     /* Color of line number column of panes. */
 	ODD_LINE_COLOR,     /* Color of every second entry line in a pane. */
+	JUMP_LABEL_COLOR,   /* Labels of entries in jump mode. */
 	MAXNUM_COLOR        /* Number of elements of a color scheme. */
 };
 

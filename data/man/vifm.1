@@ -421,6 +421,21 @@ find the next match of f or F.
 .TP
 .BI [count],
 find the previous match of f or F.
+.TP
+.BI \(sc
+label all visible entries of the current pane (except the one under the
+cursor) with short key sequences and move the cursor to the entry whose label
+gets typed.  Closer entries get shorter labels.  Labels are drawn over the
+beginning of entries using JumpLabel highlight group, characters for them are
+taken from \(aqjumplabels\(aq option.  While labels are displayed typing a
+label character narrows down the set of labels (typing it in upper case,
+unless the upper case character is a label character itself, also opens the
+target once the label is complete like gl does, in Visual mode the selection
+is opened), <bs> and <c\-h> remove the
+last typed character, while <esc>, <c\-c> or any character that doesn't
+continue a label abort.  If there is only one possible target, the cursor
+moves to it right away.  Works in Visual mode as well, where it extends the
+selection.
 .LP
 Note: f, F, ; and , wrap around list beginning and end when they are used
 alone and they don't wrap when they are used as selectors.
@@ -2350,6 +2365,7 @@ their content (e.g. regular files in views)
  \- CurrLine \- line at cursor position in active view
  \- OtherLine \- line at cursor position in inactive view
  \- OddLine \- color of every second entry line in a pane
+ \- JumpLabel \- labels of entries displayed by \(sc key
  \- LineNr \- line number column of views
  \- Selected \- color of selected files
  \- Directory \- color of directories
@@ -4750,6 +4766,15 @@ default: false
 When this option is set, search and view update for local filter is be
 performed starting from initial cursor position each time search pattern is
 changed.
+.TP
+.BI "'jumplabels'"
+type: string
+.br
+default: "asdghklqwertyuiopzxcvbnmfj"
+.br
+Characters to use for labels displayed by \(sc key.  Only distinct printable
+non\-whitespace ASCII characters are used, at least two of them are required.
+Characters at the beginning of the value make up the shortest labels.
 .TP
 .BI "'keepsel'"
 type: boolean

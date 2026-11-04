@@ -101,6 +101,7 @@ TEST(all_groups_are_printed)
 		"OtherWin   cterm=none ctermfg=default ctermbg=default\n"
 		"LineNr     cterm=none ctermfg=default ctermbg=default\n"
 		"OddLine    cterm=none ctermfg=default ctermbg=default\n"
+		"JumpLabel  cterm=bold ctermfg=black   ctermbg=yellow\n"
 		"\n"
 		"column:size cterm=bold ctermfg=red     ctermbg=red\n"
 		"\n"
