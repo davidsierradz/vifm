@@ -192,7 +192,8 @@ am_vifm_OBJECTS = cfg/config.$(OBJEXT) cfg/info.$(OBJEXT) \
 	modes/dialogs/change_dialog.$(OBJEXT) \
 	modes/dialogs/msg_dialog.$(OBJEXT) \
 	modes/dialogs/sort_dialog.$(OBJEXT) modes/cmdline.$(OBJEXT) \
-	modes/file_info.$(OBJEXT) modes/menu.$(OBJEXT) \
+	modes/file_info.$(OBJEXT) modes/jump.$(OBJEXT) \
+	modes/menu.$(OBJEXT) \
 	modes/modes.$(OBJEXT) modes/more.$(OBJEXT) \
 	modes/normal.$(OBJEXT) modes/view.$(OBJEXT) \
 	modes/visual.$(OBJEXT) ui/cancellation.$(OBJEXT) \
@@ -362,7 +363,8 @@ am__depfiles_remade = ./$(DEPDIR)/args.Po ./$(DEPDIR)/background.Po \
 	menus/$(DEPDIR)/undolist_menu.Po menus/$(DEPDIR)/users_menu.Po \
 	menus/$(DEPDIR)/vifm_menu.Po modes/$(DEPDIR)/cmdline.Po \
 	modes/$(DEPDIR)/file_info.Po modes/$(DEPDIR)/menu.Po \
-	modes/$(DEPDIR)/modes.Po modes/$(DEPDIR)/more.Po \
+	modes/$(DEPDIR)/jump.Po modes/$(DEPDIR)/modes.Po \
+	modes/$(DEPDIR)/more.Po \
 	modes/$(DEPDIR)/normal.Po modes/$(DEPDIR)/view.Po \
 	modes/$(DEPDIR)/visual.Po \
 	modes/dialogs/$(DEPDIR)/attr_dialog_nix.Po \
@@ -974,6 +976,7 @@ vifm_SOURCES = \
 	\
 	modes/cmdline.c modes/cmdline.h \
 	modes/file_info.c modes/file_info.h \
+	modes/jump.c modes/jump.h \
 	modes/menu.c modes/menu.h \
 	modes/modes.c modes/modes.h \
 	modes/more.c modes/more.h \
@@ -1486,6 +1489,8 @@ modes/cmdline.$(OBJEXT): modes/$(am__dirstamp) \
 	modes/$(DEPDIR)/$(am__dirstamp)
 modes/file_info.$(OBJEXT): modes/$(am__dirstamp) \
 	modes/$(DEPDIR)/$(am__dirstamp)
+modes/jump.$(OBJEXT): modes/$(am__dirstamp) \
+	modes/$(DEPDIR)/$(am__dirstamp)
 modes/menu.$(OBJEXT): modes/$(am__dirstamp) \
 	modes/$(DEPDIR)/$(am__dirstamp)
 modes/modes.$(OBJEXT): modes/$(am__dirstamp) \
@@ -1850,6 +1855,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/file_info.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/menu.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/modes.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/jump.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/more.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/normal.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@modes/$(DEPDIR)/view.Po@am__quote@ # am--include-marker
@@ -2920,6 +2926,7 @@ distclean: distclean-am
 	-rm -f modes/$(DEPDIR)/file_info.Po
 	-rm -f modes/$(DEPDIR)/menu.Po
 	-rm -f modes/$(DEPDIR)/modes.Po
+	-rm -f modes/$(DEPDIR)/jump.Po
 	-rm -f modes/$(DEPDIR)/more.Po
 	-rm -f modes/$(DEPDIR)/normal.Po
 	-rm -f modes/$(DEPDIR)/view.Po
@@ -3191,6 +3198,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f modes/$(DEPDIR)/file_info.Po
 	-rm -f modes/$(DEPDIR)/menu.Po
 	-rm -f modes/$(DEPDIR)/modes.Po
+	-rm -f modes/$(DEPDIR)/jump.Po
 	-rm -f modes/$(DEPDIR)/more.Po
 	-rm -f modes/$(DEPDIR)/normal.Po
 	-rm -f modes/$(DEPDIR)/view.Po

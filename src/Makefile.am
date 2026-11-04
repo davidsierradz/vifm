@@ -245,6 +245,7 @@ vifm_SOURCES = \
 	\
 	modes/cmdline.c modes/cmdline.h \
 	modes/file_info.c modes/file_info.h \
+	modes/jump.c modes/jump.h \
 	modes/menu.c modes/menu.h \
 	modes/modes.c modes/modes.h \
 	modes/more.c modes/more.h \

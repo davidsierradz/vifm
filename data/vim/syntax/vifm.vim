@@ -107,7 +107,7 @@ syntax keyword vifmHiGroups contained WildMenu Border Win CmdLine CurrLine
 		\ OtherLine Directory Link Socket Device Executable Selected BrokenLink
 		\ TopLine TopLineSel StatusLine JobLine SuggestBox Fifo ErrorMsg WildBox
 		\ CmpMismatch CmpUnmatched CmpBlank
-		\ AuxWin OtherWin TabLine TabLineSel HardLink LineNr OddLine
+		\ AuxWin OtherWin TabLine TabLineSel HardLink LineNr OddLine JumpLabel
 		\ User1 User2 User3 User4 User5 User6 User7 User8 User9 User10
 		\ User11 User12 User13 User14 User15 User16 User17 User18 User19 User20
 syntax keyword vifmHiStyles contained
@@ -163,7 +163,7 @@ syntax keyword vifmOption contained aproposprg autocd autochpos caseoptions
 		\ cvoptions deleteprg dotdirs dotfiles dirsize extprompt fastrun fileoptions
 		\ fillchars fcs findprg followlinks fusehome gdefault grepprg histcursor
 		\ history hi hloptions hlsearch hls iec ignorecase ic iooptions incsearch is
-		\ keepsel laststatus lines locateprg ls lsoptions lsview mediaprg
+		\ jumplabels keepsel laststatus lines locateprg ls lsoptions lsview mediaprg
 		\ milleroptions millerview mintimeoutlen mouse navoptions number nu
 		\ numberwidth nuw previewoptions previewprg quickview relativenumber rnu
 		\ rulerformat ruf runexec scrollbind scb scrolloff sessionoptions ssop so

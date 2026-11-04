@@ -36,6 +36,7 @@
 #include "../cfg/config.h"
 #include "../compat/pthread.h"
 #include "../lua/vlua.h"
+#include "../modes/jump.h"
 #include "../utils/fs.h"
 #include "../utils/macros.h"
 #include "../utils/path.h"
@@ -123,6 +124,7 @@ static void column_line_print(const char buf[], int offset, AlignType align,
 static void column_line_match(const char full_column[],
 		const format_info_t *info, int *match_from, int *match_to);
 static void draw_line_number(const column_data_t *cdt, int column);
+static void draw_jump_label(const column_data_t *cdt, int width);
 static int is_primary_column_id(int id);
 static cchar_t prepare_col_color(const view_t *view, int is_primary_colored,
 		int line_nr, const column_data_t *cdt, int real_id, int filling);
@@ -1082,7 +1084,41 @@ compute_and_draw_cell(column_data_t *cdt, int cell, size_t col_count,
 	columns_t *columns = get_view_columns(cdt->view, truncated);
 	draw_cell(columns, cdt, lpadding, col_width - lpadding - rpadding, rpadding);
 
+	draw_jump_label(cdt, col_width - lpadding - rpadding);
+
 	cdt->prefix_len = NULL;
+}
+
+/* Draws label of jump mode (if any) over the beginning of an entry right after
+ * line number column.  The width parameter specifies width of the cell without
+ * paddings. */
+static void
+draw_jump_label(const column_data_t *cdt, int width)
+{
+	const char *const label = modjump_get_label(cdt->view, cdt->line_pos);
+	if(label == NULL || label[0] == '\0')
+	{
+		return;
+	}
+
+	const int padding = (cfg.extra_padding != 0);
+	const int room = width - (int)cdt->number_width;
+	if(room <= 0)
+	{
+		return;
+	}
+
+	char buf[strlen(label) + 1];
+	copy_str(buf, MIN((int)sizeof(buf), room + 1), label);
+
+	const col_scheme_t *const cs = ui_view_get_cs(cdt->view);
+	col_attr_t col = ui_get_win_color(cdt->view, cs);
+	cs_mix_colors(&col, &cs->color[JUMP_LABEL_COLOR]);
+	const cchar_t cch = cs_color_to_cchar(&col, -1);
+
+	checked_wmove(cdt->view->win, cdt->current_line,
+			cdt->column_offset + padding + cdt->number_width);
+	wprinta(cdt->view->win, buf, &cch, 0);
 }
 
 void

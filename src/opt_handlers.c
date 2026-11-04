@@ -34,6 +34,7 @@
 #include "engine/options.h"
 #include "engine/text_buffer.h"
 #include "int/term_title.h"
+#include "modes/jump.h"
 #include "ui/fileview.h"
 #include "ui/quickview.h"
 #include "ui/statusbar.h"
@@ -153,6 +154,7 @@ static void iec_handler(OPT_OP op, optval_t val);
 static void ignorecase_handler(OPT_OP op, optval_t val);
 static void incsearch_handler(OPT_OP op, optval_t val);
 static void iooptions_handler(OPT_OP op, optval_t val);
+static void jumplabels_handler(OPT_OP op, optval_t val);
 static void keepsel_handler(OPT_OP op, optval_t val);
 static void laststatus_handler(OPT_OP op, optval_t val);
 static void lines_handler(OPT_OP op, optval_t val);
@@ -739,6 +741,10 @@ options[] = {
 	  OPT_SET, ARRAY_LEN(iooptions_vals), iooptions_vals, &iooptions_handler,
 	  NULL,
 	  { .init = &init_iooptions },
+	},
+	{ "jumplabels", "", "characters to use for labels of jump mode",
+	  OPT_STR, 0, NULL, &jumplabels_handler, NULL,
+	  { .ref.str_val = &cfg.jump_labels },
 	},
 	{ "keepsel", "", "don't reset selection on some switches to normal mode",
 	  OPT_BOOL, 0, NULL, &keepsel_handler, NULL,
@@ -2499,6 +2505,25 @@ iooptions_handler(OPT_OP op, optval_t val)
 {
 	cfg.fast_file_cloning = ((val.set_items & 1) != 0);
 	cfg.data_sync = ((val.set_items & 2) != 0);
+}
+
+/* Handles changes of 'jumplabels'.  Rejects values that contain less than two
+ * distinct printable ASCII characters. */
+static void
+jumplabels_handler(OPT_OP op, optval_t val)
+{
+	if(!modjump_labels_valid(val.str_val))
+	{
+		vle_tb_append_linef(vle_err,
+				"At least two distinct printable ASCII characters are needed: %s",
+				val.str_val);
+		error = 1;
+		val.str_val = cfg.jump_labels;
+		vle_opts_assign("jumplabels", val, OPT_GLOBAL);
+		return;
+	}
+
+	replace_string(&cfg.jump_labels, val.str_val);
 }
 
 /* Handles changes of 'keepsel'. */

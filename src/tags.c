@@ -82,6 +82,7 @@ const char *tags[] = {
 	"vifm-'incsearch'",
 	"vifm-'iooptions'",
 	"vifm-'is'",
+	"vifm-'jumplabels'",
 	"vifm-'keepsel'",
 	"vifm-'laststatus'",
 	"vifm-'lines'",
@@ -1055,5 +1056,6 @@ const char *tags[] = {
 	"vifm-zz",
 	"vifm-{",
 	"vifm-}",
+	"vifm-§",
 	0,
 };

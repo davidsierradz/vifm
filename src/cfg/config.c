@@ -116,6 +116,7 @@ cfg_init(void)
 
 	cfg.auto_execute = 0;
 	cfg.time_format = strdup("%m/%d %H:%M");
+	cfg.jump_labels = strdup("asdghklqwertyuiopzxcvbnmfj");
 	cfg.wrap_quick_view = 1;
 	cfg.undo_levels = 100;
 	cfg.sort_numbers = 0;

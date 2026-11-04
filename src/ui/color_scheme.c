@@ -101,6 +101,7 @@ char *HI_GROUPS[] = {
 	[OTHER_WIN_COLOR]    = "OtherWin",
 	[LINE_NUM_COLOR]     = "LineNr",
 	[ODD_LINE_COLOR]     = "OddLine",
+	[JUMP_LABEL_COLOR]   = "JumpLabel",
 };
 ARRAY_GUARD(HI_GROUPS, MAXNUM_COLOR);
 
@@ -156,6 +157,7 @@ const char *HI_GROUPS_DESCR[] = {
 	[OTHER_WIN_COLOR]    = "additional highlighting of inactive pane",
 	[LINE_NUM_COLOR]     = "color of line number column in panes",
 	[ODD_LINE_COLOR]     = "color of every second entry line in a pane",
+	[JUMP_LABEL_COLOR]   = "labels of entries in jump mode",
 };
 ARRAY_GUARD(HI_GROUPS_DESCR, ARRAY_LEN(HI_GROUPS));
 
@@ -527,6 +529,7 @@ static const col_attr_t default_cs[] = {
 	[OTHER_WIN_COLOR]    = { -1,            -1,          -1                      },
 	[LINE_NUM_COLOR]     = { -1,            -1,          -1                      },
 	[ODD_LINE_COLOR]     = { -1,            -1,          -1                      },
+	[JUMP_LABEL_COLOR]   = { COLOR_BLACK,   COLOR_YELLOW, A_BOLD                 },
 };
 ARRAY_GUARD(default_cs, MAXNUM_COLOR);
 

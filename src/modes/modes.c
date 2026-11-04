@@ -40,6 +40,7 @@
 #include "dialogs/sort_dialog.h"
 #include "cmdline.h"
 #include "file_info.h"
+#include "jump.h"
 #include "menu.h"
 #include "more.h"
 #include "normal.h"
@@ -59,6 +60,7 @@ static int mode_flags[] = {
 	0,                            /* FILE_INFO_MODE */
 	0,                            /* MSG_MODE */
 	0,                            /* MORE_MODE */
+	0,                            /* JUMP_MODE */
 };
 ARRAY_GUARD(mode_flags, MODES_COUNT);
 
@@ -75,6 +77,7 @@ static char uses_input_bar[] = {
 	1, /* FILE_INFO_MODE */
 	0, /* MSG_MODE */
 	0, /* MORE_MODE */
+	0, /* JUMP_MODE */
 };
 ARRAY_GUARD(uses_input_bar, MODES_COUNT);
 
@@ -92,6 +95,7 @@ static mode_init_func mode_init_funcs[] = {
 	&modfinfo_init,           /* FILE_INFO_MODE */
 	&init_msg_dialog_mode,    /* MSG_MODE */
 	&modmore_init,            /* MORE_MODE */
+	&modjump_init,            /* JUMP_MODE */
 };
 ARRAY_GUARD(mode_init_funcs, MODES_COUNT);
 
@@ -189,7 +193,7 @@ modes_post(void)
 void
 modes_statusbar_update(void)
 {
-	if(ANY(vle_mode_is, MORE_MODE, CMDLINE_MODE, NAV_MODE))
+	if(ANY(vle_mode_is, MORE_MODE, CMDLINE_MODE, NAV_MODE, JUMP_MODE))
 	{
 		return;
 	}
