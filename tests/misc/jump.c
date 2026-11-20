@@ -68,7 +68,7 @@ TEST(labels_are_single_chars_when_there_is_enough_of_them)
 	setup_grid(view, 1, 20, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	assert_true(vle_mode_is(JUMP_MODE));
 
 	assert_null(modjump_get_label(view, 0));
@@ -90,7 +90,7 @@ TEST(closer_entries_get_labels_first)
 	setup_grid(view, 1, 20, 1);
 	view->list_pos = 3;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 
 	assert_string_equal("a", modjump_get_label(view, 4));
 	assert_string_equal("s", modjump_get_label(view, 2));
@@ -108,7 +108,7 @@ TEST(only_visible_entries_are_labeled)
 	view->top_line = 10;
 	view->list_pos = 12;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 
 	assert_null(modjump_get_label(view, 9));
 	assert_string_equal("s", modjump_get_label(view, 11));
@@ -124,7 +124,7 @@ TEST(multichar_labels_are_prefix_free_and_narrow_down)
 	setup_grid(view, 1, 20, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 
 	assert_string_equal("aa", modjump_get_label(view, 1));
 	assert_string_equal("aba", modjump_get_label(view, 2));
@@ -158,7 +158,7 @@ TEST(invalid_jumplabels_fall_back_to_defaults)
 	setup_grid(view, 1, 20, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	assert_string_equal("a", modjump_get_label(view, 1));
 }
 
@@ -167,20 +167,20 @@ TEST(escape_and_unknown_keys_abort)
 	setup_grid(view, 1, 20, 1);
 	view->list_pos = 2;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	(void)vle_keys_exec_timed_out(WK_ESC);
 	assert_true(vle_mode_is(NORMAL_MODE));
 	assert_int_equal(2, view->list_pos);
 	assert_null(modjump_get_label(view, 3));
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	(void)vle_keys_exec_timed_out(WK_C_c);
 	assert_true(vle_mode_is(NORMAL_MODE));
 	assert_int_equal(2, view->list_pos);
 
 	/* 'z' isn't used by any label among the first few. */
 	update_string(&cfg.jump_labels, "asd");
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	(void)vle_keys_exec_timed_out(WK_z);
 	assert_true(vle_mode_is(NORMAL_MODE));
 	assert_int_equal(2, view->list_pos);
@@ -191,7 +191,7 @@ TEST(sole_target_is_jumped_to_immediately)
 	setup_grid(view, 1, 2, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	assert_true(vle_mode_is(NORMAL_MODE));
 	assert_int_equal(1, view->list_pos);
 }
@@ -201,7 +201,7 @@ TEST(grid_cells_are_labeled)
 	setup_grid(view, 2, 17, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	assert_string_equal("a", modjump_get_label(view, 1));
 	assert_non_null(modjump_get_label(view, 15));
 	assert_null(modjump_get_label(view, 16));
@@ -225,7 +225,7 @@ TEST(visual_mode_selection_is_extended)
 	assert_true(vle_mode_is(VISUAL_MODE));
 
 	/* Targets: 2 (a), 0 (s), 3 (d), 4 (g). */
-	(void)vle_keys_exec_timed_out(WK_SECTION WK_g);
+	(void)vle_keys_exec_timed_out(WK_CENT WK_g);
 	assert_true(vle_mode_is(VISUAL_MODE));
 	assert_int_equal(4, view->list_pos);
 
@@ -243,7 +243,7 @@ TEST(capital_label_opens_target)
 {
 	setup_sandbox_list();
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	const int c_pos = fpos_find_by_name(view, "c");
 	assert_true(c_pos >= 0);
 	const wchar_t keys[] = { towupper(single_char_label(c_pos)), L'\0' };
@@ -258,12 +258,56 @@ TEST(capital_label_opens_target)
 	teardown_sandbox_list();
 }
 
+TEST(section_opens_target)
+{
+	setup_sandbox_list();
+
+	(void)vle_keys_exec_timed_out(WK_SECTION);
+	const int c_pos = fpos_find_by_name(view, "c");
+	assert_true(c_pos >= 0);
+	const wchar_t keys[] = { single_char_label(c_pos), L'\0' };
+
+	char *saved_cwd = save_cwd();
+	(void)vle_keys_exec_timed_out(keys);
+	restore_cwd(saved_cwd);
+
+	assert_true(vle_mode_is(NORMAL_MODE));
+	assert_string_equal("c", get_last_path_component(view->curr_dir));
+
+	teardown_sandbox_list();
+}
+
+TEST(section_opens_single_target_right_away)
+{
+	create_dir(SANDBOX_PATH "/a");
+	create_dir(SANDBOX_PATH "/b");
+
+	make_abs_path(view->curr_dir, sizeof(view->curr_dir), SANDBOX_PATH, "", cwd);
+	populate_dir_list(view, /*reload=*/0);
+	assert_int_equal(2, view->list_rows);
+	view->column_count = 1;
+	view->run_size = 1;
+	view->window_cells = view->window_rows;
+	view->list_pos = fpos_find_by_name(view, "b");
+	assert_true(view->list_pos >= 0);
+
+	char *saved_cwd = save_cwd();
+	(void)vle_keys_exec_timed_out(WK_SECTION);
+	restore_cwd(saved_cwd);
+
+	assert_true(vle_mode_is(NORMAL_MODE));
+	assert_string_equal("a", get_last_path_component(view->curr_dir));
+
+	remove_dir(SANDBOX_PATH "/a");
+	remove_dir(SANDBOX_PATH "/b");
+}
+
 TEST(removing_all_typed_chars_cancels_opening)
 {
 	update_string(&cfg.jump_labels, "ab");
 	setup_sandbox_list();
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 
 	/* Find an entry with a multi-character label. */
 	int pos;
@@ -303,7 +347,7 @@ TEST(capital_label_char_is_a_label_on_its_own)
 	setup_grid(view, 1, 3, 1);
 	view->list_pos = 0;
 
-	(void)vle_keys_exec_timed_out(WK_SECTION);
+	(void)vle_keys_exec_timed_out(WK_CENT);
 	assert_string_equal("a", modjump_get_label(view, 1));
 	assert_string_equal("A", modjump_get_label(view, 2));
 

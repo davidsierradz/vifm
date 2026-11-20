@@ -113,6 +113,7 @@ static void cmd_cp(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_cw(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_f(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_section(key_info_t key_info, keys_info_t *keys_info);
+static void cmd_cent(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_gA(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_ga(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_gg(key_info_t key_info, keys_info_t *keys_info);
@@ -228,7 +229,8 @@ static keys_add_info_t builtin_cmds[] = {
 	{WK_a WK_v,     {{&cmd_av}, .descr = "leave/switch to amending visual mode"}},
 	{WK_d,          {{&cmd_d},  .descr = "remove files"}},
 	{WK_f,          {{&cmd_f}, FOLLOWED_BY_MULTIKEY, .descr = "char-search forward"}},
-	{WK_SECTION, {{&cmd_section}, .descr = "jump to a labeled visible entry"}},
+	{WK_SECTION, {{&cmd_section}, .descr = "jump to a labeled visible entry and open it"}},
+	{WK_CENT,    {{&cmd_cent}, .descr = "jump to a labeled visible entry"}},
 	{WK_c WK_l,     {{&cmd_cl}, .descr = "change symlink target"}},
 	{WK_c WK_p,     {{&cmd_cp}, .descr = "change file permissions/attributes"}},
 	{WK_c WK_w,     {{&cmd_cw}, .descr = "rename files"}},
@@ -731,11 +733,18 @@ delete(key_info_t key_info, int use_trash)
 	}
 }
 
-/* Labels visible entries and waits for a label to jump to. */
+/* Labels visible entries and waits for a label to jump to and open. */
 static void
 cmd_section(key_info_t key_info, keys_info_t *keys_info)
 {
-	modjump_enter(view);
+	modjump_enter(view, /*open=*/1);
+}
+
+/* Labels visible entries and waits for a label to jump to. */
+static void
+cmd_cent(key_info_t key_info, keys_info_t *keys_info)
+{
+	modjump_enter(view, /*open=*/0);
 }
 
 /* Navigates to next word which starts with specified character. */

@@ -367,7 +367,7 @@ See also |vifm-regexp|.
 Note: f, F, ; and , wrap around list beginning and end when they are used
 alone and they don't wrap when they are used as selectors.
 
-§                                              *vifm-§*
+¢                                              *vifm-¢*
     label all visible entries of the current pane (except the one under the
     cursor) with short key sequences and move the cursor to the entry whose
     label gets typed.  Closer entries get shorter labels.  Labels are drawn
@@ -382,6 +382,11 @@ alone and they don't wrap when they are used as selectors.
      - <esc>, <c-c> or any character that doesn't continue a label abort
     If there is only one possible target, the cursor moves to it right away.
     Works in Visual mode as well, where it extends the selection.
+
+§                                              *vifm-§*
+    same as |vifm-¢|, but also opens the target once the cursor is moved to
+    it (like |vifm-gl|; in Visual mode the selection is opened), as if label
+    characters were typed in upper case.
 
 Filters~
                                                *vifm-filters*
@@ -2032,7 +2037,7 @@ Available group-name values:
  - CurrLine - line at cursor position in active view
  - OtherLine - line at cursor position in inactive view
  - OddLine - color of every second entry line in a pane
- - JumpLabel - labels of entries displayed by |vifm-§|
+ - JumpLabel - labels of entries displayed by |vifm-¢| and |vifm-§|
  - LineNr - line number column of views
  - Selected - color of selected files
  - Directory - color of directories
@@ -4012,9 +4017,10 @@ jumplabels
 type: string
 default: "asdghklqwertyuiopzxcvbnmfj"
 
-Characters to use for labels displayed by |vifm-§|.  Only distinct printable
-non-whitespace ASCII characters are used, at least two of them are required.
-Characters at the beginning of the value make up the shortest labels.
+Characters to use for labels displayed by |vifm-¢| and |vifm-§|.  Only
+distinct printable non-whitespace ASCII characters are used, at least two of
+them are required.  Characters at the beginning of the value make up the
+shortest labels.
 
                                                *vifm-'keepsel'*
 keepsel

@@ -69,6 +69,7 @@
 #define WK_DOLLAR  L"$"
 #define WK_DOT     L"."
 #define WK_SECTION L"\u00a7"
+#define WK_CENT    L"\u00a2"
 #define WK_EM      L"!"
 #define WK_EQUALS  L"="
 #define WK_ESC     L"\x1b"

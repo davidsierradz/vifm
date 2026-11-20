@@ -77,6 +77,9 @@ static char **labels;
 static char label_chars[128];
 /* Whether the target should be opened after jumping to it. */
 static int open_target;
+/* Value of open_target on entering the mode (restored by removing all typed
+ * characters). */
+static int open_initial;
 /* Characters typed so far. */
 static char typed[MAX_LABEL_LEN + 1];
 /* Number of characters typed so far. */
@@ -104,7 +107,7 @@ modjump_init(void)
 }
 
 void
-modjump_enter(view_t *v)
+modjump_enter(view_t *v, int open)
 {
 	if(v->list_rows <= 1)
 	{
@@ -144,7 +147,7 @@ modjump_enter(view_t *v)
 	{
 		const int target = targets[0];
 		free(targets);
-		jump_to(target, /*open=*/0);
+		jump_to(target, open);
 		return;
 	}
 
@@ -179,7 +182,8 @@ modjump_enter(view_t *v)
 	nlabels = last - first + 1;
 	ntyped = 0U;
 	typed[0] = '\0';
-	open_target = 0;
+	open_initial = open;
+	open_target = open;
 	active = 1;
 
 	vle_mode_set(JUMP_MODE, VMT_SECONDARY);
@@ -290,7 +294,7 @@ cmd_ctrl_h(key_info_t key_info, keys_info_t *keys_info)
 	typed[--ntyped] = '\0';
 	if(ntyped == 0U)
 	{
-		open_target = 0;
+		open_target = open_initial;
 	}
 	update_ui();
 }

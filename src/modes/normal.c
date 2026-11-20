@@ -172,6 +172,7 @@ static void cmd_dp(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_e(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_f(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_section(key_info_t key_info, keys_info_t *keys_info);
+static void cmd_cent(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_gA(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_ga(key_info_t key_info, keys_info_t *keys_info);
 static void cmd_gf(key_info_t key_info, keys_info_t *keys_info);
@@ -357,7 +358,8 @@ static keys_add_info_t builtin_cmds[] = {
 	{WK_d,             {{&cmd_d_selector}, FOLLOWED_BY_SELECTOR, .descr = "remove files"}},
 	{WK_e,             {{&cmd_e}, .descr = "explore file contents"}},
 	{WK_f,             {{&cmd_f}, FOLLOWED_BY_MULTIKEY, .descr = "char-search forward"}},
-	{WK_SECTION, {{&cmd_section}, .descr = "jump to a labeled visible entry"}},
+	{WK_SECTION, {{&cmd_section}, .descr = "jump to a labeled visible entry and open it"}},
+	{WK_CENT,    {{&cmd_cent}, .descr = "jump to a labeled visible entry"}},
 	{WK_g WK_A,        {{&cmd_gA}, .descr = "(re)calculate size"}},
 	{WK_g WK_a,        {{&cmd_ga}, .descr = "calculate size"}},
 	{WK_g WK_f,        {{&cmd_gf}, .descr = "navigate to link target"}},
@@ -1581,11 +1583,18 @@ cmd_e(key_info_t key_info, keys_info_t *keys_info)
 	modview_enter(curr_view, 1);
 }
 
-/* Labels visible entries and waits for a label to jump to. */
+/* Labels visible entries and waits for a label to jump to and open. */
 static void
 cmd_section(key_info_t key_info, keys_info_t *keys_info)
 {
-	modjump_enter(curr_view);
+	modjump_enter(curr_view, /*open=*/1);
+}
+
+/* Labels visible entries and waits for a label to jump to. */
+static void
+cmd_cent(key_info_t key_info, keys_info_t *keys_info)
+{
+	modjump_enter(curr_view, /*open=*/0);
 }
 
 /* Navigates to next word which starts with specified character. */

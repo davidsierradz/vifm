@@ -28,8 +28,10 @@ struct view_t;
 void modjump_init(void);
 
 /* Labels visible entries of the view and enters jump mode.  If there is only
- * one target, cursor is moved to it immediately and the mode isn't entered. */
-void modjump_enter(struct view_t *view);
+ * one target, cursor is moved to it immediately and the mode isn't entered.
+ * Non-zero open makes jumping also open the target (selection in Visual
+ * mode). */
+void modjump_enter(struct view_t *view, int open);
 
 /* Leaves jump mode without moving the cursor. */
 void modjump_abort(void);

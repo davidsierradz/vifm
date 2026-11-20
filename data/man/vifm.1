@@ -422,7 +422,7 @@ find the next match of f or F.
 .BI [count],
 find the previous match of f or F.
 .TP
-.BI \(sc
+.BI \(ct
 label all visible entries of the current pane (except the one under the
 cursor) with short key sequences and move the cursor to the entry whose label
 gets typed.  Closer entries get shorter labels.  Labels are drawn over the
@@ -436,6 +436,11 @@ last typed character, while <esc>, <c\-c> or any character that doesn't
 continue a label abort.  If there is only one possible target, the cursor
 moves to it right away.  Works in Visual mode as well, where it extends the
 selection.
+.TP
+.BI \(sc
+same as \(ct, but also opens the target once the cursor is moved to it like
+gl does (in Visual mode the selection is opened), as if label characters were
+typed in upper case.
 .LP
 Note: f, F, ; and , wrap around list beginning and end when they are used
 alone and they don't wrap when they are used as selectors.
@@ -2365,7 +2370,7 @@ their content (e.g. regular files in views)
  \- CurrLine \- line at cursor position in active view
  \- OtherLine \- line at cursor position in inactive view
  \- OddLine \- color of every second entry line in a pane
- \- JumpLabel \- labels of entries displayed by \(sc key
+ \- JumpLabel \- labels of entries displayed by \(ct and \(sc keys
  \- LineNr \- line number column of views
  \- Selected \- color of selected files
  \- Directory \- color of directories
@@ -4772,8 +4777,9 @@ type: string
 .br
 default: "asdghklqwertyuiopzxcvbnmfj"
 .br
-Characters to use for labels displayed by \(sc key.  Only distinct printable
-non\-whitespace ASCII characters are used, at least two of them are required.
+Characters to use for labels displayed by \(ct and \(sc keys.  Only distinct
+printable non\-whitespace ASCII characters are used, at least two of them are
+required.
 Characters at the beginning of the value make up the shortest labels.
 .TP
 .BI "'keepsel'"
